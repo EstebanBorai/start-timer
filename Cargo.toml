@@ -1,8 +1,8 @@
 [package]
 name = "start-timer"
-version = "0.1.0"
+version = "0.0.0"
 edition = "2021"
-description = "CLI Utility to start a timer"
+description = "Utility to Start a Timer"
 categories = ["cli", "utils"]
 homepage = "https://github.com/EstebanBorai/start-timer"
 repository = "https://github.com/EstebanBorai/start-timer"

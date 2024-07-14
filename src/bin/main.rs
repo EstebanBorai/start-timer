@@ -19,7 +19,7 @@ fn main() {
                 sleep(Duration::from_secs(1));
 
                 if clock.has_ended() {
-                    println!("Timer '{}' has ended", new_opt.label);
+                    println!("Timer has ended");
                     break;
                 }
 
