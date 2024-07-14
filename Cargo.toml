@@ -1,0 +1,23 @@
+[package]
+name = "start-timer"
+version = "0.1.0"
+edition = "2021"
+description = "CLI Utility to start a timer"
+categories = ["cli", "utils"]
+homepage = "https://github.com/EstebanBorai/start-timer"
+repository = "https://github.com/EstebanBorai/start-timer"
+readme = "README.md"
+keywords = ["timer", "utility", "notify"]
+license = "MIT OR Apache-2.0"
+authors = ["Esteban Borai <estebanborai@gmail.com>"]
+
+[lib]
+name = "start_timer"
+path = "src/lib.rs"
+
+[[bin]]
+name = "start-timer"
+path = "src/bin/main.rs"
+
+[dependencies]
+clap = { version = "4.5.2", features = ["std", "derive", "env"] }
