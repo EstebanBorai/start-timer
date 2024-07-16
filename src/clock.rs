@@ -24,6 +24,6 @@ impl Display for Clock {
         let elapsed = self.started_at.elapsed();
         let remaining = self.durantion.checked_sub(elapsed).unwrap_or_default();
 
-        write!(f, "{}", remaining.as_secs())
+        write!(f, "{}", humantime::format_duration(remaining))
     }
 }

@@ -1,6 +1,7 @@
 mod cli;
 
-use std::{thread::sleep, time::Duration};
+use std::thread::sleep;
+use std::time::Duration;
 
 use clap::Parser;
 
@@ -13,7 +14,7 @@ fn main() {
 
     match args.command {
         cli::command::Command::New(new_opt) => {
-            let clock = Clock::new(Duration::from_secs(new_opt.duration));
+            let clock = Clock::new(new_opt.duration.into());
 
             loop {
                 sleep(Duration::from_secs(1));
