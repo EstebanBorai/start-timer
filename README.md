@@ -25,6 +25,6 @@ cargo install start-timer
 Create a new timer
 
 ```bash
-# Starts a new timer with a duration of 60 seconds
-start-timer new -d 60
+# Starts a new timer with a duration of 1:30:10
+start-timer new 1h30m10s
 ```
