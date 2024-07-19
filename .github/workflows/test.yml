@@ -23,5 +23,10 @@ jobs:
       - name: Setup Rust Cache
         uses: Swatinem/rust-cache@v2
 
+      - name: Install System Libraries
+        run: |
+            sudo apt install -y \
+                libasound2-dev
+
       - name: Run tests
         run: cargo test --all-features
