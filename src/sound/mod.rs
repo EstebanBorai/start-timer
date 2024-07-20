@@ -1,12 +1,15 @@
-use std::fs::File;
-use std::io::BufReader;
+mod track;
+
+use std::time::Duration;
 
 use anyhow::{Context, Result};
-use rodio::{Decoder, OutputStream, OutputStreamHandle, Source};
+use rodio::{OutputStream, OutputStreamHandle, Source};
+use track::{InMemoryTrackDecoder, Track};
 
 pub struct Sound {
-    source: Decoder<BufReader<File>>,
+    source: InMemoryTrackDecoder,
     stream_handle: OutputStreamHandle,
+    duration: Duration,
     /// If this is dropped playback will end & attached
     /// `OutputStreamHandle`s will no longer work.
     #[allow(dead_code)]
@@ -17,11 +20,11 @@ impl Sound {
     pub fn new() -> Result<Self> {
         let (output_stream, stream_handle) =
             OutputStream::try_default().context("Failed to retrieve output stream")?;
-        let file = File::open("assets/music.mp3").context("Failed to open music file")?;
-        let source = Decoder::new(BufReader::new(file)).context("Failed to decode music file")?;
+        let track = Track::Calm.load().context("Failed to decode music file")?;
 
         Ok(Sound {
-            source,
+            source: track.decoder,
+            duration: track.duration,
             output_stream,
             stream_handle,
         })
@@ -31,7 +34,7 @@ impl Sound {
         self.stream_handle
             .play_raw(self.source.convert_samples())
             .context("Failed to play raw audio")?;
-        std::thread::sleep(std::time::Duration::from_secs(5));
+        std::thread::sleep(self.duration);
 
         Ok(())
     }
