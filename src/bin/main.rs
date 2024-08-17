@@ -1,37 +1,20 @@
 mod cli;
-
-use std::thread::sleep;
-use std::time::Duration;
+mod osx;
 
 use anyhow::Result;
 use clap::Parser;
 
-use start_timer::clock::Clock;
-use start_timer::sound::Sound;
-
 use self::cli::StartTimerCli;
+use self::osx::MenuItem;
 
 fn main() -> Result<()> {
     let args = StartTimerCli::parse();
 
     match args.command {
         cli::command::Command::New(new_opt) => {
-            let clock = Clock::new(new_opt.duration.into());
-            let sound = Sound::new()?;
-
-            loop {
-                sleep(Duration::from_secs(1));
-
-                if clock.has_ended() {
-                    println!("Timer has ended");
-                    sound.play()?;
-
-                    return Ok(());
-                }
-
-                println!("{}", clock);
-                print!("{esc}c", esc = 27 as char);
-            }
+            MenuItem::run();
         }
     }
+
+    Ok(())
 }
